@@ -1,0 +1,67 @@
+<% layout('layout/boilerplate') %>
+                <div class="text-end">
+                    <a href="/kitesurf/<%=kiteProduct._id %> "><div class="d-inline p-2  bg-primary text-white">Back to <%= kiteProduct.name %>
+                    </div></a>
+                </div>
+    <h1>Edit <%= kiteProduct.name %> </h1>
+    <form action="/kitesurf/<%=kiteProduct._id%>?_method=PUT" method="POST" novalidate class="need-validation">
+
+        <div class="mb-3">
+            <label for="name" class="col-sm-2 col-form-label">name:</label>
+            <input type="text" id="name" name="kiteproduct[name]" class="form-control" placeholder="<%=kiteProduct.name%>" required>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="col-sm-2 col-form-label">image Url:</label>
+            <input type="text" id="image" name="kiteproduct[image]" class="form-control" placeholder="<%=kiteProduct.image%>" required>
+        </div>
+        <div class="row g-3">
+            <div class="col-auto">
+                <label for="company">company:</label>
+                <input type="text" name="kiteproduct[company]" class="form-label" id="company" placeholder="<%=kiteProduct.company%>" required>
+            </div>
+            <div class="col-auto">
+                <label for="category">category:</label>
+                <input type="text" id="category" name="kiteproduct[category]" class="form-label" placeholder="<%=kiteProduct.category%> required"
+                    class="category" value="">
+            </div>
+
+            <div class="col-auto">
+                <label for="subcategory">subcategory:</label>
+                <input type="text" name="kiteproduct[subcategory]" class="form-label" id="subcategory" placeholder="<%=kiteProduct.subcategory%> required"
+                    placeholder="product subcategory">
+            </div>
+            <div class="col-auto">
+                <label for="size">size:</label>
+                <input type="text" name="kiteproduct[size]" id="size" placeholder="<%=kiteProduct.size%>" required>
+            </div>
+        
+        
+        </div>
+        <label for="price" class="form-label">Price:</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">€</span>
+            <input type="text" class="form-control" name="kiteproduct[price]" id="price" aria-describedby="basic-addon3" placeholder="<%=kiteProduct.price%>" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="description" class="form-label">description:</label>
+            <textarea class="form-control" name="kiteproduct[description]" id="descritpion" placeholder="<%=kiteProduct.description%>"
+                rows="3" required></textarea>
+        
+        </div>
+        <button class="btn btn-primary">Submit</button>
+
+    </form>
+    
+
+    <script>
+        $('#categories').change(function () {
+            // var selected = $(this).find("option:selected").text();
+            // console.log($(this).val())
+            $("input[id='category']").val($(this).val());
+        });
+    </script>
+
+
+
+

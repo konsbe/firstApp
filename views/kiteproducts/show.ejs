@@ -1,0 +1,147 @@
+<% layout('layout/boilerplate') %>
+
+        <h1>
+            <%= kiteProduct.name %>
+        </h1>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col">
+                    <img src="<%= kiteProduct.image %>" class="img-fluid rounded mx-auto d-block pt-5" alt="...">
+                </div>
+        
+                <div class="col-md-8">
+                    <div class="align-middle">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= kiteProduct.name %>
+                            </h5>
+                            <p class="card-text">
+                                <%= kiteProduct.description %>.
+                            </p>
+        
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="/kitesurf?subcategory=<%= kiteProduct.subcategory %>"><%= kiteProduct.subcategory %></a>
+                                </li>
+                                <li class="list-group-item" id="price">
+                                    <% let array = kiteProduct.price.split(','); %> 
+                                    €  
+                                     
+                                     
+                                </li>
+
+                                <li class="list-group-item">
+                                    <a href="/firms/<%= kiteProduct.firm._id %>"><%= kiteProduct.firm.name %></a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="/kitesurf?category=<%= kiteProduct.category %>"><%= kiteProduct.category %></a>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= kiteProduct.size %>
+                                </li>
+                                
+                                    <select class="form-select" id="sizes" aria-label="Default select example">
+                                        <option value="0" selected>Select Size</option>
+                                        <% let i = 0; %> 
+                                        <% for (let element of kiteProduct.size.split(',')) {%>
+                                        <option value=<%= array[i] %> >
+                                            <%= element %>
+                                            
+                                        </option>
+                                        <% i++ %> 
+                                        <% } %>
+                                    </select>
+                                
+                            </ul>
+                            <div class="card-body">
+                                <form action="/kitesurf/<%= kiteProduct._id %>?_method=DELETE" method="POST">
+                                    <a href="/kitesurf" class="text-decoration-none"><div class="d-inline p-2 bg-primary text-white">Back to all Products</div></a>
+                                    <a href="/kitesurf/<%=kiteProduct._id%>/edit" class="text-decoration-none"><div class="d-inline p-2 bg-dark text-white">Edit</div></a>
+                                    
+                                    <div class="d-inline p-2 bg-danger text-white"><button class="btn btn-link text-decoration-none">&#128465;&#65039;</button></div>
+                                </form>
+
+                                <form action="/shoppingcart" method="POST">
+                                    <button>U+1F6D2</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-2 border-bottom border-end border-start">
+            <h3>Leave a review</h3>
+            <form action="/kitesurf/<%=kiteProduct._id %>/reviews" method="POST" novalidate class="need-validation">
+                <div class="input-group mb-3">
+                    <div class="mb-3 row mt-5">
+                        <label for="nickname" class="col-sm-2 col-form-label">Nickname</label>
+                        <div class="col-sm-10">
+                        <input type="text" id="nickname" class="form-control ms-4" name="review[nickname]" placeholder="Nickname"
+                            aria-label="Username">
+                        
+                        </div>
+                    </div>
+
+                    <div class=" row ms-5 mt-5">
+                        <label for="rating" class="col-md-4 form-label">Rating:</label>
+                        <input type="range" class="col form-range" id="rating"  min="1" max="5" name="review[rating]" placeholder="Server" aria-label="Server">
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label" for="reviewbody">Review</label>
+                    <textarea class="form-control" name="review[body]" id="body" cols="60" rows="3" required></textarea>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                    <div class="text-end">
+                        <button class="btn btn-info mt-1 mb-2">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+            <% for (let review of product.reviews){ %> 
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">Rating: <%= review.rating %></h5>
+                    <p class="card-text">Review: <%= review.body %></p>
+                    <form action='/kitesurf/<%=kiteProduct._id %>/reviews/<%= review._id %>?_method=DELETE' method="POST">
+                        <button class="btn btn-danger">&#128465;&#65039;</button>
+                    </form>
+                </div>
+            </div>
+                
+            <% } %>
+             
+
+        
+            <!-- <ul>
+            
+                <li>name: <%= kiteProduct.name %></li>
+                <li> <img src="<%= kiteProduct.image %>"></li>
+                <li>price: $<%= kiteProduct.price %></li>
+                <li>subcategory: <%= kiteProduct.subcategory %></li>
+                <li>category: <a href="/kitesurf?category=<%= kiteProduct.category %>"><%= kiteProduct.category %></a></li>
+                <li>size: <%= kiteProduct.size %></li>
+                <li>company: <%= kiteProduct.company %></li>
+                <li>description: <%= kiteProduct.description %>
+                </li>
+                    
+            </ul> -->
+
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+                    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+                    <script src="ejs.min.js"></script>
+                    <script type='text/javascript'>
+                        $('#sizes').change(function () {
+                            // var selected = $(this).find("option:selected").text();
+                            // console.log($(this).val())
+                            
+                            var $id = parseInt($(this).val());
+                            // let price = arr[id];
+
+                            $("#price").text($(this).val());
+                        });
+                    </script>
+           

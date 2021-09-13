@@ -1,0 +1,50 @@
+<% layout('layout/boilerplate') %> 
+
+
+    <h1><%= subcategory %> Equipment</h1>
+ 
+    <div class="d-flex justify-content-around">
+        <div class="row">
+            <% for (let kiteProduct of kiteProducts) {%>
+                
+                    <div class="col">
+                        <a href="/kitesurf/<%= kiteProduct._id %>">
+                            <div class="card" style="width: 18rem;">
+                                <img src="<%= kiteProduct.image %>" class="card-img-top image" width="300" height="300" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="/kitesurf/<%= kiteProduct._id %>">
+                                        <%= kiteProduct.name %>
+                                    </a>
+                                    </h5>
+                                    
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><%= kiteProduct.subcategory %></li>
+                                    <li class="list-group-item"><%= kiteProduct.size %></li>
+                                    <li class="list-group-item"><%= kiteProduct.company %></li>
+                                    <li class="list-group-item"><%= kiteProduct.category %></li>
+                                    <li class="list-group-item">€ <%= kiteProduct.price %></li>
+                                </ul>
+                                <div class="card-body">
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        
+                     </div>
+            <% if (kiteProducts.indexOf(kiteProduct) % 4 === 3){ %>  
+            <div class="row mt-2">
+            <div class="col">
+            
+            </div>
+            </div>
+            <% } %>  
+            <% } %>  
+            </div>
+        </a>
+        </div>
+    <p><a href="/kitesurf/new"> New Product</a></p>
+
+<script>
+
+</script>

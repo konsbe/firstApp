@@ -1,0 +1,73 @@
+<% layout('layout/boilerplate') %>
+
+    <h1>
+        <%= firm.name %>
+    </h1>
+
+
+
+    <a href="<%=firm.link %> "><p ><%= firm.link %></p></a>
+<form action="/firms/<%= firm._id %>?_method=DELETE" method="POST">
+    <a href="/firms" class="text-decoration-none">
+        <div class="d-inline p-2 bg-primary text-white">Back to all Firms</div>
+    </a>
+    <a href="/firms/<%= firm._id %>/kitesurf/new " class="text-decoration-none">
+        <div class="d-inline p-2 bg-primary text-white">Add Product</div>
+    </a>
+    <a href="/firms/<%=firm._id%>/edit" class="text-decoration-none">
+        <div class="d-inline p-2 bg-dark text-white">Edit</div>
+    </a>
+
+
+    <div class="d-inline p-2 bg-primary text-white"><button class="btn btn-link text-decoration-none">&#128465;&#65039;</button></div>
+
+</form>
+
+
+<div class="d-flex justify-content-around mb-2 mt-2">
+    <div class="row">
+        <% for(let product of firm.products){ %>
+                <div class="col">
+                    <a href="/kitesurf/<%= product._id %>">
+                        <div class="card" style="width: 18rem;">
+                            <img src="<%= product.image %>" class="card-img-top image" width="300" height="300" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/kitesurf/<%= product._id %>">
+                                        <%= product.name %>
+                                    </a>
+                                </h5>
+                
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <%= product.subcategory %>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= product.size %>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= product.company %>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= product.category %>
+                                </li>
+                                <li class="list-group-item"> €<%=product.price %> 
+                                </li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                
+                </div>
+                <% if (firm.products.indexOf(product) % 4===3){ %>
+                    <div class="row mt-2">
+                        <div class="col">
+                
+                        </div>
+                    </div>
+                <% } %>
+        <% } %>
+    </div>
+</div>

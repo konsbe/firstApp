@@ -1,0 +1,29 @@
+<% layout('layout/boilerplate') %>
+
+
+    <h1>List of Firms</h1>
+
+
+
+
+
+<div class="d-flex justify-content-around">
+<% for (let firm of firms) {%>
+    <div class="card" style="width: 18rem;">
+        <a href="/firms/<%=firm._id%>">
+        <img src="<%= firm.image %> " class="card-img-top" width="300" height="300" alt="...">
+        </a>
+        <div class="card-body">
+            <h5 class="card-title"><%= firm.name %> </h5>
+            
+            <a href="<%= firm.link %>" class="btn btn-primary">Go official website</a>
+        </div>
+    </div>
+<% } %>
+
+</div>
+    <p><a href="/firms/new"> New Firm</a></p>
+
+    <script>
+
+    </script>

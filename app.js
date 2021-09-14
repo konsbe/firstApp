@@ -11,6 +11,9 @@ const ExpressError = require('./utils/ExpressError');
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
 
 const kiteRouter = require('./routes/kiteRouter');
@@ -70,6 +73,14 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     next();
 })
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 

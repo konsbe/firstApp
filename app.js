@@ -66,7 +66,15 @@ const sessionConfig = {
 app.use(session(sessionConfig))
 app.use(flash())
 
-// New comment!
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
@@ -75,12 +83,6 @@ app.use((req, res, next) => {
 })
 
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 
 

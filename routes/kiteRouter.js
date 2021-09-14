@@ -4,6 +4,8 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Kitesurf = require('../models/kitesurf');
 const { kitesurfSchema } = require('../schemas.js');
+const { isLoggedIn, isAdmin } = require('../middleware');
+
 
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -35,7 +37,7 @@ router.get('/', catchAsync(async (req, res) => {
     // res.render('kiteproducts/index', { kiteProducts })
 }))
 
-router.get('/new', catchAsync(async (req, res) => {
+router.get('/new', isLoggedIn, catchAsync(async (req, res) => {
     const kiteproducts = await Kitesurf.find({})
     res.locals.title = "Add a new Product";
     res.render('kiteproducts/new', { kiteproducts })

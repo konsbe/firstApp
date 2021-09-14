@@ -7,6 +7,8 @@ const Kitesurf = require('../models/kitesurf');
 // const Review = require('../models/review');
 const Firm = require('../models/firms');
 
+const { isLoggedIn, isAdmin } = require('../middleware');
+
 const session = require('express-session');
 const flash = require('connect-flash')
 
@@ -39,7 +41,7 @@ router.get('/:id', catchAsync(async (req, res) => {
     res.render('firms/show', { firm })
 }));
 
-router.get('/:id/kitesurf/new', catchAsync (async (req, res) => {
+router.get('/:id/kitesurf/new', isAdmin, catchAsync (async (req, res) => {
     res.locals.title = "Add a new Product";
     const { id } = req.params;
     const kiteproducts = await Kitesurf.find({})

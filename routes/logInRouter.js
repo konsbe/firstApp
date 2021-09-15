@@ -15,7 +15,8 @@ router.get('/', catchAsync( async(req, res)=> {
 router.post('/', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login'}), catchAsync(async (req, res) => {
     const { id } = req.params
     const lUser = await User.findById(id)
-    req.flash('success', 'You have succesfully log in');
+    const currentUser = await req.user.username
+    req.flash('success', `${currentUser} you have succesfully log in`);
     res.redirect('/kitesurf')
 }))
 

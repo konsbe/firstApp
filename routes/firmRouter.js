@@ -7,7 +7,7 @@ const Kitesurf = require('../models/kitesurf');
 // const Review = require('../models/review');
 const Firm = require('../models/firms');
 
-const { isLoggedIn, isAdmin } = require('../middleware');
+const { isLoggedIn, isAdmin, decideMiddleware } = require('../middleware');
 
 const session = require('express-session');
 const flash = require('connect-flash')
@@ -20,7 +20,7 @@ router.get('/', catchAsync(async (req, res) => {
     res.render('firms/index', { firms })
 }))
 
-router.get('/new', catchAsync((req, res) => {
+router.get('/new', isAdmin, catchAsync((req, res) => {
     res.locals.title = "Add a new Company";
     res.render('firms/new')
 }))
@@ -65,7 +65,7 @@ router.post('/:id/kitesurf', catchAsync(async (req, res) => {
     res.redirect(`/firms/${id}`)
 }))
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isAdmin, catchAsync(async (req, res) => {
     const { id } = req.params;
     const firms = await Firm.find({});
     const firm = await Firm.findById(id);
@@ -83,7 +83,7 @@ router.put('/:id', catchAsync(async (req, res) => {
 }))
 
 
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isAdmin, catchAsync(async (req, res) => {
     const firm = await Firm.findByIdAndDelete(req.params.id)
     req.flash('success', 'Firm was deleted successfully');
     res.redirect('/firms')

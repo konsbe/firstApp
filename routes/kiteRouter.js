@@ -37,7 +37,7 @@ router.get('/', catchAsync(async (req, res) => {
     // res.render('kiteproducts/index', { kiteProducts })
 }))
 
-router.get('/new', isLoggedIn, catchAsync(async (req, res) => {
+router.get('/new',  isAdmin, catchAsync(async (req, res) => {
     const kiteproducts = await Kitesurf.find({})
     res.locals.title = "Add a new Product";
     res.render('kiteproducts/new', { kiteproducts })
@@ -77,7 +77,7 @@ router.get('/:id', catchAsync(async (req, res) => {
     res.render('kiteproducts/show', { kiteProduct, kiteProducts, product })
 }));
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isAdmin, catchAsync(async (req, res) => {
     const { id } = req.params;
     const kiteProducts = await Kitesurf.find({});
     const kiteProduct = await Kitesurf.findById(id);
@@ -100,7 +100,7 @@ router.put('/:id', validateKiteproduct, catchAsync(async (req, res) => {
 
 
 
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isAdmin, catchAsync(async (req, res) => {
     const { id } = req.params
     const deleteProduct = await Kitesurf.findByIdAndDelete(id);
     req.flash('success', 'Product was deleted successfully');

@@ -6,6 +6,7 @@ const Kitesurf = require('../models/kitesurf');
 const { reviewSchema } = require('../schemas.js');
 const Review = require('../models/review');
 
+const { decideMiddleware } = ('./middleware')
 
 const session = require('express-session');
 const flash = require('connect-flash')
@@ -20,7 +21,7 @@ const validateReview = (req, res, next) => {
     }
 }
 
-router.post('/', validateReview, catchAsync(async (req, res) => {
+router.post('/',  validateReview, catchAsync(async (req, res) => {
     const { id } = req.params;
     const kiteProduct = await Kitesurf.findById(id);
     const review = new Review(req.body.review);

@@ -6,7 +6,7 @@ const Kitesurf = require('../models/kitesurf');
 const { reviewSchema } = require('../schemas.js');
 const Review = require('../models/review');
 
-const { decideMiddleware } = ('./middleware')
+const { isLoggedIn } = ('../middleware')
 
 const session = require('express-session');
 const flash = require('connect-flash')

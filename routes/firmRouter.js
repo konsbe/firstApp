@@ -24,7 +24,7 @@ router.get('/new', isAdmin, catchAsync((req, res) => {
     res.locals.title = "Add a new Company";
     res.render('firms/new')
 }))
-router.post('/', catchAsync(async (req, res) => {
+router.post('/', isAdmin, catchAsync(async (req, res) => {
     const firm = new Firm(req.body)
     await firm.save();
     req.flash('success', 'Succesfully made new firm');
@@ -49,7 +49,7 @@ router.get('/:id/kitesurf/new', isAdmin, catchAsync (async (req, res) => {
     res.render('kiteproducts/new', { kiteproducts, firm })
 }))
 
-router.post('/:id/kitesurf', catchAsync(async (req, res) => {
+router.post('/:id/kitesurf', isAdmin, catchAsync(async (req, res) => {
     const { id } = req.params;
     const firm = await Firm.findById(id).populate('products');
     const { name, image, company, category, subcategory, size, price, description } = req.body.kiteproduct
@@ -74,7 +74,7 @@ router.get('/:id/edit', isAdmin, catchAsync(async (req, res) => {
 }))
 
 
-router.put('/:id', catchAsync(async (req, res) => {
+router.put('/:id', isAdmin, catchAsync(async (req, res) => {
     const { id } = req.params;
     // const kiteProduct = await Kitesurf.findById(id)
     const firm = await Firm.findByIdAndUpdate(id, { ...req.body });

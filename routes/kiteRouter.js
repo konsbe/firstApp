@@ -46,7 +46,7 @@ router.get('/new',  isAdmin, catchAsync(async (req, res) => {
 
 
 
-router.post('/',  catchAsync(async (req, res, next) => {
+router.post('/', isAdmin, catchAsync(async (req, res, next) => {
     
 
 
@@ -90,7 +90,7 @@ router.get('/:id/edit', isAdmin, catchAsync(async (req, res) => {
     res.render('kiteproducts/edit', { kiteProduct, kiteProducts })
 }))
 
-router.put('/:id', validateKiteproduct, catchAsync(async (req, res) => {
+router.put('/:id', isAdmin, validateKiteproduct, catchAsync(async (req, res) => {
     const { id } = req.params;
     // const kiteProduct = await Kitesurf.findById(id)
     const kiteProduct = await Kitesurf.findByIdAndUpdate(id, { ...req.body.kiteproduct });

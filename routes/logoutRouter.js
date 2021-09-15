@@ -6,7 +6,7 @@ const ExpressError = require('../utils/ExpressError');
 
 router.get('/', (req, res) => {
     req.logout();
-    req.flash('success', 'You have loggd out')
+    req.flash('success', 'You have log out')
     res.redirect('/kitesurf')
 })
 

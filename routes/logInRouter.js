@@ -5,6 +5,7 @@ const router = express.Router({ mergeParams: true });
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const User = require('../models/user')
+const session = require('express-session');
 
 router.get('/', catchAsync( async(req, res)=> {
     
@@ -17,7 +18,9 @@ router.post('/', passport.authenticate('local', { failureFlash: true, failureRed
     const lUser = await User.findById(id)
     const currentUser = await req.user.username
     req.flash('success', `${currentUser} you have succesfully log in`);
-    res.redirect('/kitesurf')
+    const redirectUrl = req.session.returnTo || '/campgrounds';
+    delete req.session.returnTo;
+    res.redirect(redirectUrl)
 }))
 
 

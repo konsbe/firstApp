@@ -13,7 +13,7 @@ module.exports.kitesurfSchema = Joi.object({
     }).required()
 });
 module.exports.usedSchema = Joi.object({
-    kiteproduct: Joi.object({
+    usedproduct: Joi.object({
         name: Joi.string().required(),
         date: Joi.number().required(),
         image: Joi.string().required(),

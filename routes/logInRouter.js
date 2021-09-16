@@ -18,7 +18,7 @@ router.post('/', passport.authenticate('local', { failureFlash: true, failureRed
     const lUser = await User.findById(id)
     const currentUser = await req.user.username
     req.flash('success', `${currentUser} you have succesfully log in`);
-    const redirectUrl = req.session.returnTo || '//kitesurf';
+    const redirectUrl = req.session.returnTo || '/kitesurf';
     delete req.session.returnTo;
     res.redirect(redirectUrl)
 }))

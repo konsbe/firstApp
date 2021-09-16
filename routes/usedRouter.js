@@ -6,8 +6,8 @@ const Used = require('../models/used');
 const { usedSchema } = require('../schemas.js');
 const { isLoggedIn, isAdmin } = require('../middleware');
 
-const validateKiteproduct = (req, res, next) => {
-    const { error } = kitesurfSchema.validate(req.body);
+const validateUsedKiteproduct = (req, res, next) => {
+    const { error } = usedSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',');
         throw new ExpressError(msg, 400);
@@ -35,7 +35,7 @@ router.get('/', catchAsync(async (req, res) => {
 
 
 
-router.get('/new',  isAdmin, catchAsync(async (req, res) => {
+router.get('/new',  isLoggedIn, catchAsync(async (req, res) => {
     const usedproducts = await Used.find({})
     res.locals.title = "Add a new Product";
     res.render('usedProducts/new', { usedproducts })
@@ -44,7 +44,7 @@ router.get('/new',  isAdmin, catchAsync(async (req, res) => {
 
 
 
-router.post('/', isAdmin, catchAsync(async (req, res, next) => {
+router.post('/', isLoggedIn, catchAsync(async (req, res, next) => {
     
 
 
@@ -76,36 +76,36 @@ router.get('/:id', catchAsync(async (req, res) => {
 }));
 
 
-// router.get('/:id/edit', isAdmin, catchAsync(async (req, res) => {
-//     const { id } = req.params;
-//     const usedProducts = await Used.find({});
-//     const usedProduct = await Used.findById(id);
-//     res.locals.title = `Edit: ${usedProduct.name}`;
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const usedProducts = await Used.find({});
+    const usedProduct = await Used.findById(id);
+    res.locals.title = `Edit: ${usedProduct.name}`;
 
-//     // if (!product && !kiteProduct) {
-//     //     req.flash('error', 'No Product Found');
-//     //     res.redirect('/kitesurf');
-//     // }
-//     res.render('usedProducts/edit', { usedProduct, usedProducts })
-// }))
-
-
-// router.put('/:id', isAdmin, validateKiteproduct, catchAsync(async (req, res) => {
-//     const { id } = req.params;
-//     // const kiteProduct = await Kitesurf.findById(id)
-//     const usedProduct = await Used.findByIdAndUpdate(id, { ...req.body.kiteproduct });
-//     req.flash('success', 'Succesfully edit product');
-//     res.redirect(`/kitesurf/${usedProduct._id}`)
-// }))
+    // if (!product && !kiteProduct) {
+    //     req.flash('error', 'No Product Found');
+    //     res.redirect('/kitesurf');
+    // }
+    res.render('usedProducts/edit', { usedProduct, usedProducts })
+}))
 
 
+router.put('/:id', isLoggedIn, validateUsedKiteproduct, catchAsync(async (req, res) => {
+    const { id } = req.params;
+    // const kiteProduct = await Kitesurf.findById(id)
+    const usedProduct = await Used.findByIdAndUpdate(id, { ...req.body.usedproduct });
+    req.flash('success', 'Succesfully edit product');
+    res.redirect(`/used/${usedProduct._id}`)
+}))
 
-// router.delete('/:id', isAdmin, catchAsync(async (req, res) => {
-//     const { id } = req.params
-//     const deleteProduct = await Used.findByIdAndDelete(id);
-//     req.flash('success', 'Product was deleted successfully');
-//     res.redirect('/used');
-// }))
+
+
+router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
+    const { id } = req.params
+    const deleteProduct = await Used.findByIdAndDelete(id);
+    req.flash('success', 'Product was deleted successfully');
+    res.redirect('/used');
+}))
 
 
 

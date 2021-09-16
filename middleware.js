@@ -4,10 +4,12 @@ const User = require('./models/user')
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
+        req.session.returnTo = req.originalUrl
         req.flash('error', 'You must be sign in first')
         return res.redirect('/login');
     }
-    next();
+    req.session.returnTo = req.originalUrl
+    return next();
 }
 
     
@@ -17,7 +19,7 @@ module.exports.isAdmin = async(req, res, next) => {
     if (req.isAuthenticated()) {
         if (req.user._id != "6140ae6f0b1735855cfc1c90") {
                 
-                console.log(req.path, req.originalUrl)
+                // console.log(req.path, req.originalUrl)
                 req.flash('error', 'Only for admins');
                 return res.redirect('/login');        
             }

@@ -23,6 +23,7 @@ const loginRouter = require('./routes/logInRouter');
 const signinRouter = require('./routes/signInRouter');
 const logoutRouter = require('./routes/logoutRouter');
 const usedRouter = require('./routes/usedRouter');
+const usedReviewsRouter = require('./routes/usedReviewsRouter');
 
 mongoose.connect('mongodb://localhost:27017/kiteEquip', {
     useNewUrlParser: true,
@@ -102,6 +103,7 @@ app.use("/login", loginRouter)
 app.use("/signin", signinRouter)
 app.use("/logout", logoutRouter)
 app.use("/used", usedRouter)
+app.use("/used/:id/reviews", usedReviewsRouter)
 
 app.get('/', (req, res) => {
     res.locals.title = "Home";

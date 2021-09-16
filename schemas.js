@@ -33,5 +33,12 @@ module.exports.reviewSchema = Joi.object({
         nickname: Joi.string().required()
     }).required()
 })
+module.exports.reviewUsedSchema = Joi.object({
+    reviewused: Joi.object({
+        rating: Joi.number().required().min(1).max(5),
+        body: Joi.string().required(),
+        nickname: Joi.string().required()
+    }).required()
+})
 
 

@@ -63,7 +63,7 @@ router.get('/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     const usedProducts = await Used.find({});
     const usedProduct = await Used.findById(id);
-    // const product = await Used.findById(id).populate('reviews');
+    const product = await Used.findById(id).populate('reviews');
     
     res.locals.title = usedProduct.name;
     
@@ -72,7 +72,7 @@ router.get('/:id', catchAsync(async (req, res) => {
         res.redirect('/used');
     }
 
-    res.render('usedProducts/show', { usedProduct, usedProducts })  //, product
+    res.render('usedProducts/show', { usedProduct, usedProducts, product })  //
 }));
 
 

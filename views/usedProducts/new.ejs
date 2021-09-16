@@ -1,0 +1,102 @@
+<% layout('layout/boilerplate') %>
+
+    <h1>Add a Product
+    </h1>
+    <form action="/used" method="POST" novalidate class="need-validation">
+        <div class="mb-3">
+            <label for="name" class="col-sm-2 col-form-label">name:</label>
+            <input type="text" id="name" name="usedproduct[name]" class="form-control" placeholder="product name"
+                required>
+        </div>
+        <div class="mb-3">
+            <label for="year" class="col-sm-2 col-form-label">Year:</label>
+            <input type="year" id="year" name="usedproduct[date]" class="form-control" placeholder="2000" required>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="col-sm-2 col-form-label">image Url:</label>
+            <input type="text" id="image" name="usedproduct[image]" class="form-control" placeholder="image" required>
+        </div>
+        <div class="row g-3">
+            <div class="col-auto">
+                <label for="company">company:</label>
+                <input type="text" name="usedproduct[company]" class="form-label" id="company" placeholder="company"
+                    required>
+            </div>
+            <div class="col-auto">
+                <label for="category">category:</label>
+                <input type="text" id="category" name="usedproduct[category]" class="form-label"
+                    placeholder="product category" class="category" value="" required>
+            </div>
+            <div class="col-auto">
+                <select name='categories' id="categories" class="pb-1">
+                    <option value="">none</option>
+                    <% for (let product of usedproducts) {%>
+                        <option value="<%=product.category%>">
+                            <%= product.category %>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="subcategory">subcategory:</label>
+                <input type="text" name="usedproduct[subcategory]" class="form-label" id="subcategory"
+                    placeholder="product subcategory" required>
+            </div>
+            <div class="col-auto">
+                <label for="size">size:</label>
+                <input type="text" name="usedproduct[size]" id="size" placeholder="size" required>
+            </div>
+
+
+        </div>
+        <label for="price" class="form-label">Price:</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">€</span>
+            <input type="text" class="form-control" name="usedproduct[price]" id="price" aria-describedby="basic-addon3"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">description:</label>
+            <textarea class="form-control" name="usedproduct[description]" id="descritpion"
+                placeholder="product description" rows="3" required></textarea>
+
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <div class="mt-5">
+        <a href="/used " class="text-decoration-none">
+            <div class="d-inline p-2 bg-primary text-white">Back to All Used Products
+            </div>
+        </a>
+    </div>
+
+    <script>
+        $('#categories').change(function () {
+            // var selected = $(this).find("option:selected").text();
+            // console.log($(this).val())
+            $("input[id='category']").val($(this).val());
+        });
+    </script>
+
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.need-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>

@@ -1,0 +1,87 @@
+<% layout('layout/boilerplate') %>
+
+    <h1>
+        <%= usedProduct.name %>
+    </h1>
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col">
+                <img src="<%= usedProduct.image %>" class="img-fluid rounded mx-auto d-block pt-5" alt="...">
+            </div>
+
+            <div class="col-md-8">
+                <div class="align-middle">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= usedProduct.name %> - <%= usedProduct.date %> 
+                        </h5>
+                        <p class="card-text">
+                            <%= usedProduct.description %>.
+                        </p>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="/used?subcategory=<%= usedProduct.subcategory %>">
+                                    <%= usedProduct.subcategory %>
+                                </a>
+                            </li>
+                            <li class="list-group-item" id="price">
+                                
+                                    € <%= usedProduct.price; %>
+
+
+                            </li>
+
+                            <li class="list-group-item">
+                                
+                                    <%= usedProduct.company%>
+                                
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/used?category=<%= usedProduct.category %>">
+                                    <%= usedProduct.category %>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <%= usedProduct.size %>
+                            </li>
+
+                        </ul>
+                        <div class="card-body">
+                            <form action="/used/<%= usedProduct._id %>?_method=DELETE" method="POST">
+                                <a href="/used" class="text-decoration-none">
+                                    <div class="d-inline p-2 bg-primary text-white">Back to all Used Products</div>
+                                </a>
+                                <a href="/used/<%=usedProduct._id%>/edit" class="text-decoration-none">
+                                    <div class="d-inline p-2 bg-dark text-white">Edit</div>
+                                </a>
+
+                                <div class="d-inline p-2 bg-danger text-white"><button
+                                        class="btn btn-link text-decoration-none">&#128465;&#65039;</button></div>
+                            </form>
+
+                            <form action="/shoppingcart" method="POST">
+                                <button>U+1F6D2</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+            <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+            <script src="ejs.min.js"></script>
+            <script type='text/javascript'>
+                $('#sizes').change(function () {
+                    // var selected = $(this).find("option:selected").text();
+                    // console.log($(this).val())
+
+                    var $id = parseInt($(this).val());
+                    // let price = arr[id];
+
+                    $("#price").text($(this).val());
+                });
+            </script>

@@ -1,0 +1,65 @@
+<% layout('layout/boilerplate') %>
+
+
+    <h1>
+        <%= subcategory %> Equipment
+    </h1>
+
+    <div class="d-flex justify-content-around">
+        <div class="row">
+            <% for (let usedProduct of usedProducts) {%>
+
+                <div class="col">
+                    <a href="/used/<%= usedProduct._id %>">
+                        <div class="card" style="width: 18rem;">
+                            <img src="<%= usedProduct.image %>" class="card-img-top image" width="300" height="300"
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/used/<%= usedProduct._id %>">
+                                        <%= usedProduct.name %>
+                                    </a>
+                                </h5>
+
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <%= usedProduct.date %>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= usedProduct.subcategory %>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= usedProduct.size %>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= usedProduct.company %>
+                                </li>
+                                <li class="list-group-item">
+                                    <%= usedProduct.category %>
+                                </li>
+                                <li class="list-group-item">€ <%= usedProduct.price %>
+                                </li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+
+                </div>
+                <% if (usedProducts.indexOf(usedProduct) % 4===3){ %>
+                    <div class="row mt-2">
+                        <div class="col">
+
+                        </div>
+                    </div>
+                    <% } %>
+                        <% } %>
+        </div>
+        </a>
+    </div>
+    <p><a href="/used/new"> New Product</a></p>
+
+    <script>
+
+    </script>
